@@ -1,0 +1,64 @@
+.footer-card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 75px;
+  background: #111111;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+/* Left message box */
+.footer-status {
+  flex: 1;
+  background: #1f1f1f;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #a7f3d0;          /* success-style text */
+  margin-right: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right AI input area */
+.footer-ai {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* AI text input */
+.ai-input {
+  width: 240px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+/* AI button */
+.ai-btn {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.ai-btn:hover {
+  background: #1d4ed8;
+}

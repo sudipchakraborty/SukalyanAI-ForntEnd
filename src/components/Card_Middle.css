@@ -1,0 +1,83 @@
+.middle-card {
+  position: fixed;
+  top: 100px;
+  left: 345px;
+  right: 345px;
+  height: calc(100vh - 200px);
+
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 0 1px #e5e7eb;
+}
+
+/* Header */
+.middle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.middle-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.add-row-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.delete-row-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.undo-btn {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.undo-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Grid */
+.grid-container {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+/* AG Grid theme tuning */
+.ag-theme-alpine {
+  --ag-header-background-color: #155e75;
+  --ag-header-foreground-color: #ffffff;
+  --ag-row-hover-color: #e0f2fe;
+  --ag-selected-row-background-color: #bae6fd;
+  --ag-font-size: 14px;
+}

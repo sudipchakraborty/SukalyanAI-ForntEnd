@@ -1,0 +1,47 @@
+.card {
+  position: fixed;
+  top: 100px;
+  left: 0;
+
+  height: calc(100vh - 200px);
+  width: 300px;
+
+  padding: 20px;
+  border-radius: 18px;
+  background: #0f414b;
+  box-shadow: 0 4px 12px rgba(157, 195, 149, 0.68);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Sidebar buttons */
+.sidebar-btn {
+  display: flex;                /* IMPORTANT */
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  padding: 14px 18px;
+
+  background: #145e6e;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 25px;
+
+  font-size: 18px;
+  text-align: left;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-btn:hover {
+  background: #1b7c8e;
+}
+
+.sidebar-btn span {
+  flex: 1;                      /* keeps text aligned */
+}
