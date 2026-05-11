@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import LeftSideBar from './components/Card_LeftSideBar'
 import RightSideBar from './components/Card_RightSideBar'
