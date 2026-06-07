@@ -1,35 +1,55 @@
 import "./Card_Header.css";
-import companyLogo from "../assets/dreambot Logo.png";   // adjust path if needed
+import companyLogo from "../assets/dreambot Logo.png";
 
 function Header() {
   return (
-    <div className="header-card">
-      
-      {/* Left section */}
-      <div className="header-left">
-        <button className="header-link">Home</button>
+    <header className="header-card">
 
-        {/* Company Logo */}
+      <div className="header-left">
         <img
           src={companyLogo}
-          alt="Company Logo"
+          alt="SukalyanAI"
           className="header-logo"
         />
+
+        <div className="company-name">
+          SukalyanAI
+        </div>
       </div>
 
-      {/* Center section */}
-      <div className="header-center">
-        Inventory Management System
-      </div>
+      <nav className="header-center">
+        <button className="nav-link">Home</button>
 
-      {/* Right section */}
+        <button className="nav-link">
+          Products
+        </button>
+
+        <button className="nav-link">
+          Solutions
+        </button>
+
+        <button className="nav-link">
+          MQTT Cloud
+        </button>
+
+        <button className="nav-link">
+          Contact
+        </button>
+      </nav>
+
       <div className="header-right">
-        <button className="header-link">Support</button>
-        <button className="header-link">Login</button>
+        <button className="login-btn">
+          Login
+        </button>
+
+        <button className="start-btn">
+          Get Started
+        </button>
       </div>
 
-    </div>
+    </header>
   );
 }
 
 export default Header;
+
