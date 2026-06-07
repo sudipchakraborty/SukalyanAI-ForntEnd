@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { carouselSlides } from "../config/carouselConfig";
+import { carouselSettings } from "../config/carouselSettings";
+
 import "./Carousel.css";
 
 function Carousel() {
@@ -10,7 +12,7 @@ function Carousel() {
       setCurrent(
         (prev) => (prev + 1) % carouselSlides.length
       );
-    }, 5000);
+    }, carouselSettings.interval);
 
     return () => clearInterval(timer);
   }, []);
@@ -20,7 +22,7 @@ function Carousel() {
       {carouselSlides.map((slide, index) => (
         <div
           key={index}
-          className={`carousel-slide ${
+          className={`carousel-slide ${carouselSettings.effect} ${
             index === current ? "active" : ""
           }`}
           style={{
