@@ -1,10 +1,15 @@
+/* ===================================
+   HEADER CONTAINER
+=================================== */
+
 .header-card {
   position: fixed;
+
   top: 0;
   left: 0;
   right: 0;
 
-  height: 80px;
+  height: 90px;
 
   display: flex;
   align-items: center;
@@ -12,130 +17,268 @@
 
   padding: 0 40px;
 
-  background: rgba(10, 15, 25, 0.75);
+  background: rgba(5, 8, 22, 0.85);
 
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
 
-  border-bottom:
-    1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
-  z-index: 1000;
+  z-index: 10000;
 }
 
-/* LEFT */
+/* ===================================
+   LEFT SECTION
+=================================== */
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 .header-logo {
-  height: 48px;
+  height: 52px;
   width: auto;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
 }
 
 .company-name {
-  color: white;
-
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
 
+  color: white;
+
+  cursor: pointer;
+
   letter-spacing: 0.5px;
+
+  transition: 0.3s ease;
 }
 
-/* CENTER */
+.company-name:hover {
+  color: #00d4ff;
+}
+
+/* ===================================
+   CENTER NAVIGATION
+=================================== */
 
 .header-center {
   display: flex;
-  gap: 30px;
+  align-items: center;
+
+  gap: 10px;
 }
 
 .nav-link {
   background: transparent;
+
   border: none;
 
-  color: #d5d8df;
+  color: white;
 
   cursor: pointer;
 
-  font-size: 16px;
+  padding: 10px 14px;
+
+  border-radius: 8px;
+
+  font-size: 15px;
 
   transition: all 0.3s ease;
 }
 
 .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+
   color: #00d4ff;
 }
 
-/* RIGHT */
+/* ===================================
+   DROPDOWN
+=================================== */
 
-.header-right {
-  display: flex;
-  gap: 15px;
+.dropdown {
+  position: relative;
 }
 
-.login-btn {
+.dropdown-menu {
+  position: absolute;
+
+  top: 50px;
+  left: 0;
+
+  min-width: 280px;
+
+  background: rgba(10, 15, 25, 0.98);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 14px;
+
+  padding: 10px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45);
+
+  z-index: 99999;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+/* Show Dropdown */
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+/* Dropdown Item */
+
+.dropdown-item {
+  width: 100%;
+
+  text-align: left;
+
   background: transparent;
 
-  border: 1px solid
-    rgba(255,255,255,0.15);
+  border: none;
 
   color: white;
 
-  padding: 10px 18px;
+  padding: 12px 14px;
 
   border-radius: 8px;
 
   cursor: pointer;
 
-  transition: 0.3s;
+  transition: all 0.25s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #00d4ff;
+}
+
+/* ===================================
+   RIGHT SECTION
+=================================== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+}
+
+/* Login Button */
+
+.login-btn {
+  background: transparent;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: white;
+
+  padding: 10px 18px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
 }
 
 .login-btn:hover {
-  border-color: #00d4ff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
+/* Get Started Button */
+
 .start-btn {
+  border: none;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
   background: linear-gradient(
     135deg,
     #00d4ff,
     #4f46e5
   );
 
-  border: none;
-
-  color: white;
-
-  padding: 10px 20px;
-
-  border-radius: 8px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .start-btn:hover {
   transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(79, 70, 229, 0.35);
 }
 
-/* MOBILE */
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width: 1100px) {
+
+  .header-center {
+    gap: 6px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+}
 
 @media (max-width: 900px) {
 
-  .header-center {
-    display: none;
+  .header-card {
+    padding: 0 20px;
   }
 
   .company-name {
     display: none;
   }
 
-  .header-card {
-    padding: 0 15px;
+  .header-center {
+    display: none;
   }
 
+  .start-btn {
+    padding: 10px 14px;
+  }
 }
+

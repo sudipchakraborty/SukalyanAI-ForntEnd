@@ -1,0 +1,112 @@
+.product-page {
+  background: #050816;
+  color: white;
+  min-height: 100vh;
+}
+
+.hero-section {
+  position: relative;
+  height: 500px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.6),
+      rgba(0,0,0,0.8)
+    );
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding-left: 8%;
+}
+
+.hero-overlay h1 {
+  font-size: 4rem;
+}
+
+.hero-overlay h2 {
+  color: #00d4ff;
+  margin-top: 10px;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.hero-btn {
+  padding: 14px 28px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.primary-btn {
+  background: #00d4ff;
+  color: black;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.content-section {
+  max-width: 1300px;
+  margin: auto;
+  padding: 70px 30px;
+}
+
+.section-title {
+  margin-bottom: 25px;
+  color: #00d4ff;
+}
+
+.feature-grid,
+.benefit-grid,
+.usecase-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap: 20px;
+}
+
+.info-card {
+
+  background:
+    rgba(255,255,255,0.05);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  backdrop-filter: blur(20px);
+}

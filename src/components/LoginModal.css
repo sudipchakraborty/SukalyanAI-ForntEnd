@@ -1,0 +1,94 @@
+.login-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,0.65);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 99999;
+}
+
+.login-modal {
+
+  width: 420px;
+
+  background:
+    #0f172a;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  border-radius: 18px;
+
+  padding: 35px;
+
+  color: white;
+}
+
+.login-modal h2 {
+
+  text-align: center;
+
+  margin-bottom: 25px;
+}
+
+.login-modal form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.login-modal input {
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border:
+    1px solid rgba(255,255,255,0.1);
+
+  background:
+    rgba(255,255,255,0.05);
+
+  color: white;
+}
+
+.login-modal button {
+
+  background:
+    linear-gradient(
+      135deg,
+      #00d4ff,
+      #4f46e5
+    );
+
+  border: none;
+
+  color: white;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.login-footer {
+
+  margin-top: 20px;
+
+  text-align: center;
+
+  color: #94a3b8;
+}

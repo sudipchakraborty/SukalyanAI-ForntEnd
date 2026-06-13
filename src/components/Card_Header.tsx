@@ -1,64 +1,188 @@
 import "./Card_Header.css";
 import companyLogo from "../assets/logo_sukalyanAI.png";
 
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+import { useState } from "react";
+
+import { menuConfig }
+from "../config/menuConfig";
+
+import LoginModal
+from "./LoginModal";
+
 function Header() {
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const [showLogin,
+    setShowLogin] =
+    useState(false);
+
+  const goHome = () => {
+
+    if (location.pathname === "/") {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    } else {
+
+      navigate("/");
+    }
+  };
+
+  const goContact = () => {
+
+    if (location.pathname !== "/") {
+
+      navigate("/");
+
+      setTimeout(() => {
+
+        document
+          .getElementById("contact")
+          ?.scrollIntoView({
+            behavior: "smooth",
+          });
+
+      }, 300);
+
+    } else {
+
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({
+          behavior: "smooth",
+        });
+    }
+  };
+
+  const goGetStarted = () => {
+
+    navigate("/products");
+
+  };
+
   return (
-    <header className="header-card">
 
-      <div className="header-left">
-        <img
-          src={companyLogo}
-          alt="SukalyanAI"
-          className="header-logo"
-        />
+    <>
+      <header className="header-card">
 
-        <div className="company-name">
-          SukalyanAI
+        {/* LEFT */}
+
+        <div className="header-left">
+
+          <img
+            src={companyLogo}
+            alt="SukalyanAI"
+            className="header-logo"
+            onClick={goHome}
+          />
+
+          <div
+            className="company-name"
+            onClick={goHome}
+          >
+            SukalyanAI
+          </div>
+
         </div>
-      </div>
 
-      <nav className="header-center">
-        <button className="nav-link">Home</button>
+        {/* CENTER */}
 
-        <button className="nav-link">
-          Products
-        </button>
+        <nav className="header-center">
 
-        <button className="nav-link">
-          Solutions
-        </button>
+          <button
+            className="nav-link"
+            onClick={goHome}
+          >
+            Home
+          </button>
 
-        <button className="nav-link">
-          MQTT Cloud
-        </button>
+          {menuConfig.map((menu) => (
 
-        <button
-          className="nav-link"
-          onClick={() => {
-            document
-              .getElementById("contact")
-              ?.scrollIntoView({
-                behavior: "smooth",
-              });
-          }}
-        >
-          Contact
-        </button>
+            <div
+              key={menu.title}
+              className="dropdown"
+            >
 
-        
-      </nav>
+              <button
+                className="nav-link"
+              >
+                {menu.title} ▼
+              </button>
 
-      <div className="header-right">
-        <button className="login-btn">
-          Login
-        </button>
+              <div className="dropdown-menu">
 
-        <button className="start-btn">
-          Get Started
-        </button>
-      </div>
+                {menu.items.map((item) => (
 
-    </header>
+                  <button
+                    key={item.title}
+                    className="dropdown-item"
+                    onClick={() =>
+                      navigate(item.url)
+                    }
+                  >
+                    {item.title}
+                  </button>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          ))}
+
+          <button
+            className="nav-link"
+            onClick={goContact}
+          >
+            Contact
+          </button>
+
+        </nav>
+
+        {/* RIGHT */}
+
+        <div className="header-right">
+
+          <button
+            className="login-btn"
+            onClick={() =>
+              setShowLogin(true)
+            }
+          >
+            Login
+          </button>
+
+          <button
+            className="start-btn"
+            onClick={goGetStarted}
+          >
+            Get Started
+          </button>
+
+        </div>
+
+      </header>
+
+      <LoginModal
+        open={showLogin}
+        onClose={() =>
+          setShowLogin(false)
+        }
+      />
+
+    </>
   );
 }
 
