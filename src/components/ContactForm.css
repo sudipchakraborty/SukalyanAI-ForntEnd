@@ -11,7 +11,6 @@
 
 .contact-container {
   max-width: 1300px;
-
   margin: auto;
 
   display: grid;
@@ -24,25 +23,19 @@
 
 .contact-info h2 {
   font-size: 3rem;
-
   color: white;
-
   margin-bottom: 20px;
 }
 
 .contact-info p {
   color: #cbd5e1;
-
   line-height: 1.8;
-
   margin-bottom: 30px;
 }
 
 .info-item {
   color: #94a3b8;
-
   margin-bottom: 15px;
-
   font-size: 1.1rem;
 }
 
@@ -60,7 +53,6 @@
   padding: 35px;
 
   display: flex;
-
   flex-direction: column;
 
   gap: 20px;
@@ -69,6 +61,8 @@
 .contact-form input,
 .contact-form textarea,
 .contact-form select {
+
+  width: 100%;
 
   background:
     rgba(255,255,255,0.05);
@@ -85,14 +79,67 @@
   font-size: 15px;
 
   outline: none;
+
+  transition: all 0.3s ease;
 }
+
+/* Placeholder */
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Focus Effect */
 
 .contact-form input:focus,
 .contact-form textarea:focus,
 .contact-form select:focus {
 
   border-color: #00d4ff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0,212,255,0.15);
 }
+
+/* Dropdown Fix */
+
+.contact-form select {
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  color: white;
+}
+
+/* Dropdown Items */
+
+.contact-form select option {
+
+  background: #0f172a;
+
+  color: white;
+
+  padding: 12px;
+}
+
+/* Selected Item */
+
+.contact-form select option:checked {
+
+  background: #2563eb;
+
+  color: white;
+}
+
+/* Submit Button */
 
 .contact-form button {
 
@@ -117,11 +164,43 @@
 
   cursor: pointer;
 
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .contact-form button:hover {
+
   transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px
+    rgba(79,70,229,0.35);
+}
+
+.contact-form button:disabled {
+
+  opacity: 0.7;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* Success / Error Message */
+
+.form-status {
+
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  color: white;
+
+  text-align: center;
 }
 
 @media(max-width:900px){
@@ -132,5 +211,9 @@
 
   .contact-info h2{
     font-size:2rem;
+  }
+
+  .contact-section{
+    padding:60px 20px;
   }
 }
