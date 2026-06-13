@@ -1,3 +1,7 @@
+/* ===================================
+   OVERLAY
+=================================== */
+
 .login-overlay {
 
   position: fixed;
@@ -5,7 +9,9 @@
   inset: 0;
 
   background:
-    rgba(0,0,0,0.65);
+    rgba(0,0,0,0.75);
+
+  backdrop-filter: blur(8px);
 
   display: flex;
 
@@ -16,29 +22,76 @@
   z-index: 99999;
 }
 
+/* ===================================
+   MODAL
+=================================== */
+
 .login-modal {
 
-  width: 420px;
+  width: 450px;
+
+  max-width: 95%;
 
   background:
-    #0f172a;
+    rgba(15,23,42,0.95);
+
+  backdrop-filter: blur(20px);
 
   border:
     1px solid rgba(255,255,255,0.08);
 
-  border-radius: 18px;
+  border-radius: 20px;
 
   padding: 35px;
 
   color: white;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.45);
+
+  animation:
+    modalAppear 0.25s ease;
 }
+
+@keyframes modalAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.98);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* ===================================
+   TITLE
+=================================== */
 
 .login-modal h2 {
 
   text-align: center;
 
   margin-bottom: 25px;
+
+  font-size: 2rem;
+
+  font-weight: 700;
 }
+
+/* ===================================
+   FORM
+=================================== */
 
 .login-modal form {
 
@@ -49,11 +102,15 @@
   gap: 15px;
 }
 
+/* ===================================
+   INPUTS
+=================================== */
+
 .login-modal input {
 
-  padding: 14px;
+  padding: 14px 16px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
   border:
     1px solid rgba(255,255,255,0.1);
@@ -62,7 +119,33 @@
     rgba(255,255,255,0.05);
 
   color: white;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: all 0.3s ease;
 }
+
+.login-modal input::placeholder {
+
+  color:
+    rgba(255,255,255,0.5);
+}
+
+.login-modal input:focus {
+
+  border-color:
+    #00d4ff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0,212,255,0.15);
+}
+
+/* ===================================
+   BUTTON
+=================================== */
 
 .login-modal button {
 
@@ -79,16 +162,82 @@
 
   padding: 14px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
   cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: all 0.3s ease;
 }
+
+.login-modal button:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(79,70,229,0.35);
+}
+
+/* ===================================
+   FOOTER
+=================================== */
 
 .login-footer {
 
-  margin-top: 20px;
+  margin-top: 25px;
 
   text-align: center;
 
   color: #94a3b8;
+
+  font-size: 14px;
 }
+
+/* ===================================
+   AUTH LINK
+=================================== */
+
+.auth-link {
+
+  color: #00d4ff;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  margin-left: 6px;
+
+  transition: 0.3s ease;
+}
+
+.auth-link:hover {
+
+  color: white;
+
+  text-decoration: underline;
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width: 600px) {
+
+  .login-modal {
+
+    width: 95%;
+
+    padding: 25px;
+  }
+
+  .login-modal h2 {
+
+    font-size: 1.7rem;
+  }
+}
+
