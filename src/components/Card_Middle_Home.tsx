@@ -2,6 +2,7 @@ import "./Card_Middle_Home.css";
 import FeatureCard from "./FeatureCard";
 import { pageConfig } from "../config/featuresConfig";
 import Carousel from "./Carousel";
+import ContactForm from "./ContactForm";
 
 function Card_Middle_Home() {
   return (
@@ -30,6 +31,7 @@ function Card_Middle_Home() {
           ))}
         </div>
       </section>
+       <ContactForm />
     </div>
   );
 }

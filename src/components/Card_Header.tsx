@@ -1,5 +1,5 @@
 import "./Card_Header.css";
-import companyLogo from "../assets/dreambot Logo.png";
+import companyLogo from "../assets/logo_sukalyanAI.png";
 
 function Header() {
   return (
@@ -32,9 +32,20 @@ function Header() {
           MQTT Cloud
         </button>
 
-        <button className="nav-link">
+        <button
+          className="nav-link"
+          onClick={() => {
+            document
+              .getElementById("contact")
+              ?.scrollIntoView({
+                behavior: "smooth",
+              });
+          }}
+        >
           Contact
         </button>
+
+        
       </nav>
 
       <div className="header-right">
