@@ -71,6 +71,17 @@ function Header() {
 
   };
 
+  const goToMenuItem = (url: string) => {
+
+    if (/^https?:\/\//i.test(url)) {
+
+      window.location.assign(url);
+      return;
+    }
+
+    navigate(url);
+  };
+
   return (
 
     <>
@@ -128,7 +139,7 @@ function Header() {
                     key={item.title}
                     className="dropdown-item"
                     onClick={() =>
-                      navigate(item.url)
+                      goToMenuItem(item.url)
                     }
                   >
                     {item.title}
