@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
+import mqtt, { type MqttClient } from "mqtt";
 import "./FactoryAutomation.css";
 
 type AlertPayload = {
@@ -36,6 +37,7 @@ type AlertRow = {
 
 type ConnectionState = "connecting" | "waiting" | "live" | "error";
 type StreamMode = "direct" | "mediamtx";
+type AlertMode = "socketio" | "mqtt";
 
 const edgeHost = window.location.hostname || "127.0.0.1";
 const streamMode: StreamMode =
@@ -48,6 +50,14 @@ const alertUrl =
   import.meta.env.VITE_FACTORY_ALERT_URL ||
   import.meta.env.VITE_FACTORY_SOCKET_URL ||
   `http://${edgeHost}:5000`;
+const alertMode: AlertMode =
+  import.meta.env.VITE_FACTORY_ALERT_MODE === "mqtt" ? "mqtt" : "socketio";
+const mqttUrl =
+  import.meta.env.VITE_FACTORY_MQTT_URL || `ws://${edgeHost}:9001/mqtt`;
+const mqttTopic =
+  import.meta.env.VITE_FACTORY_MQTT_TOPIC || "test/topic";
+const mqttUsername = import.meta.env.VITE_FACTORY_MQTT_USERNAME || "";
+const mqttPassword = import.meta.env.VITE_FACTORY_MQTT_PASSWORD || "";
 
 const displayValue = (value: unknown, fallback = "—") => {
   if (value === null || value === undefined || value === "") return fallback;
@@ -202,6 +212,46 @@ function FactoryAutomation() {
   }, [connectStream, disconnectStream]);
 
   useEffect(() => {
+    const receiveAlert = (message: AlertEnvelope | AlertPayload) => {
+      const next = normalizeAlert(message);
+      setAlerts((current) => [
+        next,
+        ...current.filter((item) => item.id !== next.id),
+      ].slice(0, 100));
+    };
+
+    if (alertMode === "mqtt") {
+      const client: MqttClient = mqtt.connect(mqttUrl, {
+        username: mqttUsername || undefined,
+        password: mqttPassword || undefined,
+        clientId: `sukalyanai-web-${crypto.randomUUID()}`,
+        clean: true,
+        reconnectPeriod: 2_000,
+        connectTimeout: 10_000,
+      });
+
+      client.on("connect", () => {
+        client.subscribe(mqttTopic, { qos: 1 }, (error) => {
+          setAlertConnected(!error);
+        });
+      });
+      client.on("reconnect", () => setAlertConnected(false));
+      client.on("close", () => setAlertConnected(false));
+      client.on("error", () => setAlertConnected(false));
+      client.on("message", (_topic, payload) => {
+        try {
+          receiveAlert(JSON.parse(payload.toString()) as AlertPayload);
+        } catch {
+          // Ignore malformed/non-JSON messages on the test topic.
+        }
+      });
+
+      return () => {
+        setAlertConnected(false);
+        void client.endAsync();
+      };
+    }
+
     const socket: Socket = io(alertUrl, {
       transports: ["websocket", "polling"],
       reconnection: true,
@@ -210,13 +260,7 @@ function FactoryAutomation() {
     socket.on("connect", () => setAlertConnected(true));
     socket.on("disconnect", () => setAlertConnected(false));
     socket.on("connect_error", () => setAlertConnected(false));
-    socket.on("alert_received", (message: AlertEnvelope | AlertPayload) => {
-      const next = normalizeAlert(message);
-      setAlerts((current) => [
-        next,
-        ...current.filter((item) => item.id !== next.id),
-      ].slice(0, 100));
-    });
+    socket.on("alert_received", receiveAlert);
 
     return () => socket.disconnect();
   }, []);
@@ -243,7 +287,8 @@ function FactoryAutomation() {
           </div>
           <div className={`factory-status factory-status--${alertConnected ? "live" : "error"}`}>
             <span />
-            Alerts: {alertConnected ? "Connected" : "Disconnected"}
+            {alertMode === "mqtt" ? "MQTT" : "Alerts"}:{" "}
+            {alertConnected ? "Connected" : "Disconnected"}
           </div>
         </div>
       </section>
