@@ -23,6 +23,8 @@ import ProductPage from "./pages/ProductPage";
 
 import IndustryPage from "./pages/IndustryPage";
 
+import FactoryAutomation from "./pages/FactoryAutomation";
+
 /*
  * Future Pages
  *
@@ -54,6 +56,16 @@ function App() {
         <Route
           path="/products"
           element={<Products />}
+        />
+
+        <Route
+          path="/products/factory-automation"
+          element={<FactoryAutomation />}
+        />
+
+        <Route
+          path="/factory-automation"
+          element={<FactoryAutomation />}
         />
 
         <Route

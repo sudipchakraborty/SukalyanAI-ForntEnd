@@ -20,7 +20,7 @@ export const features = [
     description:
       "Industry 4.0 intelligent factory management.",
 
-    url: "/factory-automation",
+    url: "/products/factory-automation",
   },
 
   {

@@ -16,7 +16,7 @@ export const menuConfig = [
 
       {
         title: "Factory Automation",
-        url: "https://www.jutemill.drsudip.com",
+        url: "/products/factory-automation",
       },
 
       {

@@ -17,7 +17,7 @@ export const pageConfig = {
         "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7",
       description:
         "Industry 4.0 intelligent factory management.",
-      url: "/factory-automation",
+      url: "/products/factory-automation",
     },
 
     {
