@@ -17,6 +17,10 @@ jobs:
       run: npm install
 
     - name: Build project
+      env:
+        VITE_FACTORY_ALERT_MODE: socketio
+        VITE_FACTORY_ALERT_URL: https://socket.sukalyanai.com
+        VITE_FACTORY_SOCKET_TOKEN: ${{ secrets.SOCKET_IO_TOKEN }}
       run: npm run build
 
     - name: Deploy via FTP

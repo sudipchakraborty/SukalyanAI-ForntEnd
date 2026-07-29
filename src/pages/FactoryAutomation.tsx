@@ -50,6 +50,7 @@ const alertUrl =
   import.meta.env.VITE_FACTORY_ALERT_URL ||
   import.meta.env.VITE_FACTORY_SOCKET_URL ||
   `http://${edgeHost}:5000`;
+const socketToken = import.meta.env.VITE_FACTORY_SOCKET_TOKEN || "";
 const alertMode: AlertMode =
   import.meta.env.VITE_FACTORY_ALERT_MODE === "mqtt" ? "mqtt" : "socketio";
 const mqttUrl =
@@ -255,14 +256,29 @@ function FactoryAutomation() {
     const socket: Socket = io(alertUrl, {
       transports: ["websocket", "polling"],
       reconnection: true,
+      auth: socketToken ? { token: socketToken } : undefined,
     });
 
     socket.on("connect", () => setAlertConnected(true));
     socket.on("disconnect", () => setAlertConnected(false));
     socket.on("connect_error", () => setAlertConnected(false));
-    socket.on("alert_received", receiveAlert);
+    const socketAlertEvents = [
+      "alert_received",
+      "alert:new",
+      "incident:new",
+      "incident",
+      "alert",
+    ];
+    socketAlertEvents.forEach((eventName) => {
+      socket.on(eventName, receiveAlert);
+    });
 
-    return () => socket.disconnect();
+    return () => {
+      socketAlertEvents.forEach((eventName) => {
+        socket.off(eventName, receiveAlert);
+      });
+      socket.disconnect();
+    };
   }, []);
 
   const statusText = {
@@ -328,6 +344,14 @@ function FactoryAutomation() {
           <div>
             <span className="feed-label">Alert log</span>
             <h2>Current alerts</h2>
+            <p className="alert-source">
+              Source: {alertMode === "mqtt" ? "MQTT" : "Socket.IO"}
+              {alertMode === "mqtt" && (
+                <>
+                  {" "}· Topic: <code>{mqttTopic}</code>
+                </>
+              )}
+            </p>
           </div>
           <span className="incident-count">{alerts.length} received</span>
         </div>
