@@ -50,7 +50,11 @@ const alertUrl =
   import.meta.env.VITE_FACTORY_ALERT_URL ||
   import.meta.env.VITE_FACTORY_SOCKET_URL ||
   `http://${edgeHost}:5000`;
-const socketToken = import.meta.env.VITE_FACTORY_SOCKET_TOKEN || "";
+// Temporary public test token. Remove this fallback after validating the relay
+// and provide VITE_FACTORY_SOCKET_TOKEN through a proper authentication flow.
+const socketToken =
+  import.meta.env.VITE_FACTORY_SOCKET_TOKEN ||
+  "5532f62f4ce34bc5a5e8aba6fa53d013d1b8f22203247b7048324f62ebea4408";
 const alertMode: AlertMode =
   import.meta.env.VITE_FACTORY_ALERT_MODE === "mqtt" ? "mqtt" : "socketio";
 const mqttUrl =
