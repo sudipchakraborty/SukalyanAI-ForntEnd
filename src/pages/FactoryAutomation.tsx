@@ -1,6 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { io, type Socket } from "socket.io-client";
 import mqtt, { type MqttClient } from "mqtt";
+import { sendWhatsAppAlert } from "../services/whatsappService";
 import "./FactoryAutomation.css";
 
 type AlertPayload = {
@@ -133,6 +140,32 @@ function FactoryAutomation() {
     useState<ConnectionState>("connecting");
   const [alertConnected, setAlertConnected] = useState(false);
   const [streamError, setStreamError] = useState("");
+  const [customerMobile, setCustomerMobile] = useState("7003034313");
+  const [whatsAppMessage, setWhatsAppMessage] = useState(
+    "Visual AI demonstration alert: Safety event detected on the factory floor.",
+  );
+  const [whatsAppSending, setWhatsAppSending] = useState(false);
+  const [whatsAppFeedback, setWhatsAppFeedback] = useState("");
+  const [whatsAppSuccess, setWhatsAppSuccess] = useState(false);
+
+  const handleWhatsAppSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setWhatsAppSending(true);
+    setWhatsAppFeedback("");
+    setWhatsAppSuccess(false);
+
+    try {
+      const result = await sendWhatsAppAlert(customerMobile, whatsAppMessage);
+      setWhatsAppSuccess(true);
+      setWhatsAppFeedback(result.message);
+    } catch (error) {
+      setWhatsAppFeedback(
+        error instanceof Error ? error.message : "Unable to send WhatsApp alert.",
+      );
+    } finally {
+      setWhatsAppSending(false);
+    }
+  };
 
   const disconnectStream = useCallback(() => {
     requestRef.current?.abort();
@@ -341,6 +374,53 @@ function FactoryAutomation() {
           )}
           {streamState === "live" && <span className="live-badge"><i /> Live</span>}
         </div>
+      </section>
+
+      <section className="whatsapp-card">
+        <div className="whatsapp-card__heading">
+          <div>
+            <span className="feed-label">Demonstration messaging</span>
+            <h2>Send WhatsApp alert</h2>
+            <p>Enter the customer mobile number and demonstration message.</p>
+          </div>
+          <span className="whatsapp-chip">Twilio</span>
+        </div>
+        <form className="whatsapp-form" onSubmit={handleWhatsAppSubmit}>
+          <label>
+            Customer mobile number
+            <input
+              type="tel"
+              value={customerMobile}
+              onChange={(event) => setCustomerMobile(event.target.value)}
+              placeholder="7003034313 or +917003034313"
+              autoComplete="tel"
+              required
+            />
+          </label>
+          <label className="whatsapp-form__message">
+            Alert message
+            <textarea
+              value={whatsAppMessage}
+              onChange={(event) => setWhatsAppMessage(event.target.value)}
+              maxLength={1600}
+              rows={3}
+              required
+            />
+          </label>
+          <button type="submit" disabled={whatsAppSending}>
+            {whatsAppSending ? "Sending..." : "Send WhatsApp alert"}
+          </button>
+        </form>
+        {whatsAppFeedback && (
+          <p
+            className={`whatsapp-feedback whatsapp-feedback--${
+              whatsAppSuccess ? "success" : "error"
+            }`}
+            role="status"
+          >
+            {whatsAppFeedback}
+          </p>
+        )}
       </section>
 
       <section className="incident-card">
